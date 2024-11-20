@@ -31,6 +31,8 @@ public class RoundedPanel extends JPanel {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
+         int margin = shadowSize / 2;
+        
         // Draw shadow
         g2d.setColor(new Color(0, 0, 0, 50)); // Semi-transparent black for shadow
         g2d.fillRoundRect(shadowSize, shadowSize, getWidth() - shadowSize, getHeight() - shadowSize, cornerRadius, cornerRadius);
@@ -44,7 +46,7 @@ public class RoundedPanel extends JPanel {
 
 @Override
     public Dimension getPreferredSize() {
-        // Ensures that shadow is not cut off at the edges
+          int margin = shadowSize / 2;
         return new Dimension(super.getPreferredSize().width + shadowSize, super.getPreferredSize().height + shadowSize);
     }
 }

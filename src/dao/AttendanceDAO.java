@@ -20,13 +20,34 @@ public class AttendanceDAO {
         this.conn = conn;
     }
 
+    public List<Attendance> getAttendanceRecords() throws SQLException {
+    List<Attendance> attendanceList = new ArrayList<>();
+    String query = "SELECT student_id, date, status FROM attendance";
+
+    try (PreparedStatement stmt = conn.prepareStatement(query);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            String attendanceid = rs.getString("attendance_id");
+            int studentId = rs.getInt("student_id");
+            Date date = rs.getDate("date");
+            String status = rs.getString("status");
+
+            Attendance attendance = new Attendance(attendanceid, studentId, date, status);
+            attendanceList.add(attendance);
+        }
+    }
+    return attendanceList;
+}
+
+     
     public void addAttendance(Attendance attendance) throws SQLException {
         String query = "INSERT INTO attendance (attendanceId, studentId, date, isPresent) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, attendance.getAttendanceId());
-            stmt.setString(2, attendance.getStudentId());
-            stmt.setString(3, attendance.getDate());
-            stmt.setBoolean(4, attendance.isPresent());
+            stmt.setInt(2, attendance.getStudentID());
+            stmt.setDate(3, attendance.getDate());
+            stmt.setString(4, attendance.status());
             stmt.executeUpdate();
         }
     }
@@ -39,9 +60,9 @@ public class AttendanceDAO {
             if (rs.next()) {
                 return new Attendance(
                     rs.getString("attendanceId"),
-                    rs.getString("studentId"),
-                    rs.getString("date"),
-                    rs.getBoolean("isPresent")
+                    rs.getInt("studentId"),
+                    rs.getDate("date"),
+                    rs.getString("isPresent")
                 );
             }
             return null;
@@ -55,9 +76,9 @@ public class AttendanceDAO {
             while (rs.next()) {
                 attendances.add(new Attendance(
                     rs.getString("attendanceId"),
-                    rs.getString("studentId"),
-                    rs.getString("date"),
-                    rs.getBoolean("isPresent")
+                    rs.getInt("studentId"),
+                    rs.getDate("date"),
+                    rs.getString("isPresent")
                 ));
             }
         }
@@ -67,9 +88,9 @@ public class AttendanceDAO {
     public void updateAttendance(Attendance attendance) throws SQLException {
         String query = "UPDATE attendance SET studentId = ?, date = ?, isPresent = ? WHERE attendanceId = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, attendance.getStudentId());
-            stmt.setString(2, attendance.getDate());
-            stmt.setBoolean(3, attendance.isPresent());
+            stmt.setInt(1, attendance.getStudentID());
+            stmt.setDate(2, attendance.getDate());
+            stmt.setString(3, attendance.status());
             stmt.setString(4, attendance.getAttendanceId());
             stmt.executeUpdate();
         }

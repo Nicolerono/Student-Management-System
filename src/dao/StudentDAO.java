@@ -4,6 +4,8 @@
  */
 package dao;
 import model.Student;
+import model.StudentRecord;
+import model.Attendance;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,7 @@ try {
     }
 }
 
+   
     // Method to add a new student to the database
     public boolean addStudent(Student student) {
     String sql = "INSERT INTO students (Student_ID, Full_Name, Age, Email, Course) VALUES (?, ?, ?, ?, ?)";
@@ -53,7 +56,7 @@ try {
 }
 
     // Method to retrieve a student by ID
-    public Student getStudentById(String studentID) {
+    public Student getStudentById(int studentID) {
         String query = "SELECT * FROM students WHERE studentID = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, studentID);
@@ -74,24 +77,100 @@ try {
     }
 
     // Method to retrieve all students
-    public List<Student> getAllStudents() {
-        List<Student> students = new ArrayList<>();
-        String query = "SELECT * FROM students";
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(query);
+             
+    public List<StudentRecord> getAllStudentRecords() {
+        List<StudentRecord> records = new ArrayList<>();
+        String query = "SELECT * FROM student_records";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
             while (resultSet.next()) {
-                students.add(new Student(
-                    resultSet.getInt("studentID"),
-                    resultSet.getString("fullName"),
-                    resultSet.getInt("age"),
-                    resultSet.getString("email"),
-                    resultSet.getString("course")
+                records.add(new StudentRecord(
+                    resultSet.getInt("record_id"),
+                    resultSet.getInt("student_id"),
+                    resultSet.getString("subject"),
+                   resultSet.getString("grade"),
+                    resultSet.getString("semester"),
+                    resultSet.getInt("year")
                 ));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return students;
+
+        return records;
+    }
+    
+    public List<StudentRecord> getStudentRecordsByid(int studentID) {
+    List<StudentRecord> records = new ArrayList<>();
+    // Query your database to get records for the given studentID
+    String query = "SELECT * FROM student_records WHERE student_id = ?";
+     try (PreparedStatement statement = connection.prepareStatement(query)) {
+        statement.setInt(1, studentID);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            StudentRecord record = new StudentRecord(
+                resultSet.getInt("record_id"),
+                resultSet.getInt("student_id"),
+                resultSet.getString("subject"),
+                resultSet.getString("grade"),
+                resultSet.getString("semester"),
+                resultSet.getInt("year")
+            );
+            records.add(record);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return records;
+}
+    
+    public List<Attendance> getAttendanceRecordsByStudentId(int studentID) {
+    List<Attendance> attendanceList = new ArrayList<>();
+    String query = "SELECT * FROM attendance WHERE student_ID = ?";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        preparedStatement.setInt(1, studentID);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            Attendance attendance = new Attendance(
+                resultSet.getInt("student_ID"),
+                resultSet.getDate("attendance_date"),
+                resultSet.getString("status")
+            );
+            attendanceList.add(attendance);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return attendanceList;
+}
+
+
+     
+    public List<Attendance> getAllAttendanceRecords()  {
+        List<Attendance> attendanceList = new ArrayList<>();
+        String query = "SELECT attendance_ID, student_ID, attendance_date, status FROM attendance";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String attendanceId = resultSet.getString("attendance_ID");
+                int studentID = resultSet.getInt("student_ID");
+                Date attendancedate = resultSet.getDate("attendance_date");
+                String status = resultSet.getString("status");
+
+                Attendance attendance = new Attendance(studentID, attendancedate, status);
+                attendanceList.add(attendance);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Failed to fetch attendance records.");
+        }
+
+        return attendanceList;
     }
 
     // Method to update a student's information
@@ -123,7 +202,32 @@ try {
             return false;
         }
     }
+    
+     public List<Student> getStudentRecords() {
+        List<Student> students = new ArrayList<>();
+        String sql = "SELECT * FROM students"; 
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                students.add(new Student(
+                    rs.getInt("Student_ID"),
+                    rs.getString("Full_Name"),
+                    rs.getInt("Age"),
+                    rs.getString("Email"),
+                    rs.getString("Course")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return students;
+    }
+     
+      public Connection getConnection() {
+        return connection;
+    }
 
+
+    
     // Close the database connection
     public void closeConnection() {
         try {
@@ -134,4 +238,10 @@ try {
             e.printStackTrace();
         }
     }
+
+   
+
+   
+
+    
 }

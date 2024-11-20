@@ -1,20 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
-/**
- *
- * @author Nicole
- */
 import model.Student;
 import java.util.Scanner;
 
 public class studentManagementApp {
 
     public static void main(String[] args) {
-        StudentDAO studentDAO = new StudentDAO();
+        StudentDAO studentDAO = new StudentDAO(); // Ensure StudentDAO has a no-argument constructor
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -34,7 +26,8 @@ public class studentManagementApp {
                 case 1:
                     // Add a new student
                     System.out.print("Enter Student ID: ");
-                    String id = scanner.nextLine();
+                    int id = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
                     System.out.print("Enter Full Name: ");
                     String name = scanner.nextLine();
                     System.out.print("Enter Age: ");
@@ -53,7 +46,8 @@ public class studentManagementApp {
                 case 2:
                     // Get a student by ID
                     System.out.print("Enter Student ID to retrieve: ");
-                    String retrieveID = scanner.nextLine();
+                    int retrieveID = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
                     Student student = studentDAO.getStudentById(retrieveID);
                     if (student != null) {
                         System.out.println("Student Details:\n" + student);
@@ -65,7 +59,8 @@ public class studentManagementApp {
                 case 3:
                     // Update a student
                     System.out.print("Enter Student ID to update: ");
-                    String updateID = scanner.nextLine();
+                    int updateID = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
                     Student updateStudent = studentDAO.getStudentById(updateID);
                     if (updateStudent != null) {
                         System.out.print("Enter New Full Name (or press Enter to keep current): ");
@@ -95,18 +90,13 @@ public class studentManagementApp {
                 case 4:
                     // Delete a student
                     System.out.print("Enter Student ID to delete: ");
-                    String deleteID = scanner.nextLine();
+                    int deleteID = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
                     studentDAO.deleteStudent(deleteID);
                     System.out.println("Student deleted successfully.");
                     break;
 
-                case 5:
-                    // Display all students
-                    System.out.println("All Students:");
-                    for (Student s : studentDAO.getAllStudents()) {
-                        System.out.println(s);
-                    }
-                    break;
+              
 
                 case 6:
                     // Exit
@@ -121,4 +111,3 @@ public class studentManagementApp {
         }
     }
 }
-
