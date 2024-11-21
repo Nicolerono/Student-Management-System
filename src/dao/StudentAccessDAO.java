@@ -25,7 +25,7 @@ public class StudentAccessDAO {
 
     
 
-    // Method to validate student credentials
+    
     public boolean validateStudent(String studentId, String password) {
         String query = "SELECT * FROM student_access WHERE student_id = ? AND password = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -33,27 +33,27 @@ public class StudentAccessDAO {
             statement.setString(2, password);
 
             ResultSet resultSet = statement.executeQuery();
-            return resultSet.next(); // Returns true if a matching record is found
+            return resultSet.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    // Method to add a new student login
+  
     public boolean addStudentLogin(int studentId, String password) {
         String query = "INSERT INTO student_access (student_id, password) VALUES (?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, studentId);
             statement.setString(2, password);
-            return statement.executeUpdate() > 0; // Returns true if insertion is successful
+            return statement.executeUpdate() > 0; 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    // Method to update student password
+    
     public boolean updateStudentPassword(int studentId, String newPassword) {
         String query = "UPDATE student_access SET password = ? WHERE student_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -66,7 +66,7 @@ public class StudentAccessDAO {
         return false;
     }
 
-    // Method to delete student login
+   
     public boolean deleteStudentLogin(int studentId) {
         String query = "DELETE FROM student_access WHERE student_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -77,7 +77,7 @@ public class StudentAccessDAO {
         }
         return false;
     }
-    // Assuming DatabaseConnection.getConnection() returns a valid Connection object
+ 
 
 
 

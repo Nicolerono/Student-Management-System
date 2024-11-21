@@ -15,7 +15,7 @@ public class Student {
     private String email;
     private String course;
 
-    // Constructor
+
     public Student(int studentID, String fullName, int age, String email, String course) {
         this.studentID = studentID;
         this.fullName = fullName;
@@ -24,7 +24,7 @@ public class Student {
         this.course = course;
     }
 
-    // Getters and Setters
+    
     public int getStudentID() {
         return studentID;
     }
@@ -65,7 +65,7 @@ public class Student {
         this.course = course;
     }
 
-    // toString method to display the student's information
+    
     @Override
     public String toString() {
         return "Student ID: " + studentID + "\n" +

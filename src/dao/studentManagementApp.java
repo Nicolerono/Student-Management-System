@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class studentManagementApp {
 
     public static void main(String[] args) {
-        StudentDAO studentDAO = new StudentDAO(); // Ensure StudentDAO has a no-argument constructor
+        StudentDAO studentDAO = new StudentDAO(); 
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -20,19 +20,19 @@ public class studentManagementApp {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
 
             switch (choice) {
                 case 1:
-                    // Add a new student
+                    
                     System.out.print("Enter Student ID: ");
                     int id = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    scanner.nextLine(); 
                     System.out.print("Enter Full Name: ");
                     String name = scanner.nextLine();
                     System.out.print("Enter Age: ");
                     int age = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    scanner.nextLine(); 
                     System.out.print("Enter Email: ");
                     String email = scanner.nextLine();
                     System.out.print("Enter Course: ");
@@ -44,10 +44,10 @@ public class studentManagementApp {
                     break;
 
                 case 2:
-                    // Get a student by ID
+                   
                     System.out.print("Enter Student ID to retrieve: ");
                     int retrieveID = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    scanner.nextLine();
                     Student student = studentDAO.getStudentById(retrieveID);
                     if (student != null) {
                         System.out.println("Student Details:\n" + student);
@@ -57,10 +57,10 @@ public class studentManagementApp {
                     break;
 
                 case 3:
-                    // Update a student
+                   
                     System.out.print("Enter Student ID to update: ");
                     int updateID = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    scanner.nextLine(); 
                     Student updateStudent = studentDAO.getStudentById(updateID);
                     if (updateStudent != null) {
                         System.out.print("Enter New Full Name (or press Enter to keep current): ");
@@ -69,7 +69,7 @@ public class studentManagementApp {
 
                         System.out.print("Enter New Age (or 0 to keep current): ");
                         int newAge = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline
+                        scanner.nextLine(); 
                         if (newAge > 0) updateStudent.setAge(newAge);
 
                         System.out.print("Enter New Email (or press Enter to keep current): ");
@@ -88,10 +88,10 @@ public class studentManagementApp {
                     break;
 
                 case 4:
-                    // Delete a student
+                 
                     System.out.print("Enter Student ID to delete: ");
                     int deleteID = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    scanner.nextLine();
                     studentDAO.deleteStudent(deleteID);
                     System.out.println("Student deleted successfully.");
                     break;
@@ -99,7 +99,7 @@ public class studentManagementApp {
               
 
                 case 6:
-                    // Exit
+                    
                     System.out.println("Exiting...");
                     studentDAO.closeConnection();
                     scanner.close();

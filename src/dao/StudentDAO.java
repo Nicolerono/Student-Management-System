@@ -19,7 +19,7 @@ import java.sql.SQLException;
 public class StudentDAO {
     private Connection connection;
 
-    // Constructor to initialize the database connection
+   
     public StudentDAO() {
         String url = "jdbc:mysql://localhost:3306/student_management?useSSL=false&serverTimezone=UTC";
 String user = "root";
@@ -39,7 +39,7 @@ try {
 }
 
    
-    // Method to add a new student to the database
+    
     public boolean addStudent(Student student) {
     String sql = "INSERT INTO students (Student_ID, Full_Name, Age, Email, Course) VALUES (?, ?, ?, ?, ?)";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -48,14 +48,14 @@ try {
         stmt.setInt(3, student.getAge());
         stmt.setString(4, student.getEmail());
         stmt.setString(5, student.getCourse());
-        return stmt.executeUpdate() > 0; // Returns true if insertion is successful
+        return stmt.executeUpdate() > 0; 
     } catch (SQLException e) {
         e.printStackTrace();
-        return false; // Return false on exception
+        return false; 
     }
 }
 
-    // Method to retrieve a student by ID
+  
     public Student getStudentById(int studentID) {
         String query = "SELECT * FROM students WHERE studentID = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -73,10 +73,10 @@ try {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Return null if student not found
+        return null;
     }
 
-    // Method to retrieve all students
+   
              
     public List<StudentRecord> getAllStudentRecords() {
         List<StudentRecord> records = new ArrayList<>();
@@ -105,7 +105,7 @@ try {
     
     public List<StudentRecord> getStudentRecordsByid(int studentID) {
     List<StudentRecord> records = new ArrayList<>();
-    // Query your database to get records for the given studentID
+    
     String query = "SELECT * FROM student_records WHERE student_id = ?";
      try (PreparedStatement statement = connection.prepareStatement(query)) {
         statement.setInt(1, studentID);
@@ -173,7 +173,7 @@ try {
         return attendanceList;
     }
 
-    // Method to update a student's information
+   
     public boolean updateStudent(Student student) {
         String query = "UPDATE students SET Full_Name = ?, age = ?, email = ?, course = ? WHERE student_ID = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -190,7 +190,7 @@ try {
         }
     }
 
-    // Method to delete a student from the database
+  
     public boolean deleteStudent(int studentID) {
         String query = "DELETE FROM students WHERE Student_ID = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -228,7 +228,7 @@ try {
 
 
     
-    // Close the database connection
+ 
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {

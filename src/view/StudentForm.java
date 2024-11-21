@@ -59,9 +59,8 @@ private JTabbedPane tabbedPane;
 private JLabel statusBar;
 
 
-    /**
-     * Creates new form StudentForrm
-     */
+   
+    
     public StudentForm(int studentID, String role, int selectedTabIndex)  { 
         
         
@@ -72,7 +71,7 @@ private JLabel statusBar;
         throw new IllegalArgumentException("Invalid role: " + role);
     }
         
-          // Initialize roles
+         
       this.studentID = studentID;
         this.role = role;
         
@@ -102,7 +101,7 @@ private JLabel statusBar;
           BackgroundPanel mainPanel = new BackgroundPanel();
         setContentPane(mainPanel); 
         
-        // Display login dialog
+       
      
           
         
@@ -110,7 +109,7 @@ private JLabel statusBar;
      
         setTitle("Student Management System");
         setSize(400, 300);
-        setLocationRelativeTo(null); // Center the frame
+        setLocationRelativeTo(null); 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
          setLayout(new BorderLayout()); 
          
@@ -124,12 +123,12 @@ private JLabel statusBar;
         JLabel headerLabel = new JLabel("Student Management System", JLabel.CENTER);
     headerLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
     headerLabel.setOpaque(true);
-    headerLabel.setBackground(new Color(0xE1D6CE)); // Old Lace background
-    headerLabel.setForeground(new Color(0xb27f58)); // Deer text color
+    headerLabel.setBackground(new Color(0xE1D6CE)); 
+    headerLabel.setForeground(new Color(0xb27f58)); 
     headerLabel.setPreferredSize(new Dimension(600, 50));
     add(headerLabel, BorderLayout.NORTH);
 
-        // Initialize and set up components
+        
         initializeComponents();
         
         if ("student".equals(role)) {
@@ -141,8 +140,8 @@ private JLabel statusBar;
        statusBar = new JLabel("Status: Ready", JLabel.CENTER);
         statusBar.setFont(new Font("SansSerif", Font.PLAIN, 12));
         statusBar.setOpaque(true);
-        statusBar.setBackground(new Color(0xE1D6CE)); // Old Lace background
-        statusBar.setForeground(new Color(0x333333)); // Darker text for readability
+        statusBar.setBackground(new Color(0xE1D6CE)); 
+        statusBar.setForeground(new Color(0x333333)); 
         statusBar.setPreferredSize(new Dimension(600, 30));
         add(statusBar, BorderLayout.SOUTH);
 
@@ -158,7 +157,7 @@ private JLabel statusBar;
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             if (backgroundImage != null) {
-                // Draw the image, scaled to fit the panel
+               
                 g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
             }
         }
@@ -235,9 +234,9 @@ tabbedPane.setBackground(peachPuff);
 tabbedPane.setForeground(new Color(0xBA8759));
 
 UIManager.put("TabbedPane.selectedBackground", peachPuff);
-UIManager.put("TabbedPane.selectedForeground", darkBrown); // Text for selected tab
-UIManager.put("TabbedPane.unselectedBackground", new Color(0xBA8759)); // Deer color
-UIManager.put("TabbedPane.unselectedForeground", Color.WHITE); // Light text for unselected tabs
+UIManager.put("TabbedPane.selectedForeground", darkBrown);
+UIManager.put("TabbedPane.unselectedBackground", new Color(0xBA8759)); 
+UIManager.put("TabbedPane.unselectedForeground", Color.WHITE);
 Font tabFont = new Font("Segoe UI", Font.BOLD, 14);
 tabbedPane.setFont(tabFont);
   tabbedPane.setBackground(peachPuff);
@@ -245,7 +244,7 @@ tabbedPane.setFont(tabFont);
         
    
 
-// ScrollPane border
+
 
 
      JPanel studentInfoPanel = new RoundedPanel(backgroundColor, 20, 10);
@@ -253,7 +252,7 @@ tabbedPane.setFont(tabFont);
     studentInfoPanel.setPreferredSize(new Dimension(200, 150));
 studentInfoPanel.setLayout(new GridBagLayout());
 GridBagConstraints gbc = new GridBagConstraints();
-gbc.insets = new Insets(8, 8, 8, 8); // Padding between components
+gbc.insets = new Insets(8, 8, 8, 8); 
 gbc.fill = GridBagConstraints.HORIZONTAL; 
 
 
@@ -311,37 +310,37 @@ StudentRecordsView recordsView = new StudentRecordsView("admin", 0,studentDAO);
 
  
 
-    // Create the Attendance JPanel
+    
 JPanel attendancePanel = new JPanel();
-attendancePanel.setLayout(new BorderLayout()); // Use BorderLayout for better organization
+attendancePanel.setLayout(new BorderLayout()); 
 
-// Create the JTable for displaying attendance records
+
 JTable attendanceTable = new JTable();
-attendanceTable.setFillsViewportHeight(true); // Ensure the table expands to fill the available space
+attendanceTable.setFillsViewportHeight(true); 
 
-// Add the JTable to a JScrollPane for scrollable functionality
+
 JScrollPane scrollPane = new JScrollPane(attendanceTable);
 scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-// Add the JScrollPane (with the JTable) to the attendancePanel
+
 attendancePanel.add(scrollPane, BorderLayout.CENTER);
 
-// Optional: Add a heading or label above the table
+
 JLabel headingLabel = new JLabel("Attendance Records");
 headingLabel.setHorizontalAlignment(SwingConstants.CENTER);
 headingLabel.setFont(new Font("Arial", Font.BOLD, 16));
 headingLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 attendancePanel.add(headingLabel, BorderLayout.NORTH);
 
-// Styling and final adjustments
+
 attendanceTable.setForeground(Color.BLACK);
 attendanceTable.setBackground(Color.WHITE);
 attendanceTable.setGridColor(Color.LIGHT_GRAY);
 attendanceTable.getTableHeader().setBackground(Color.DARK_GRAY);
 attendanceTable.getTableHeader().setForeground(Color.WHITE);
 
-// Add the attendancePanel to the main container or tab
+
  List<Attendance> attendanceList = studentDAO.getAllAttendanceRecords();
 
   
@@ -356,7 +355,7 @@ attendanceTable.getTableHeader().setForeground(Color.WHITE);
 tabbedPane.setUI(new javax.swing.plaf.basic.BasicTabbedPaneUI() {
     @Override
     protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) {
-        g.setColor(isSelected ? peachPuff.darker() : peachPuff); // Darker Dusty Rose for selected tab
+        g.setColor(isSelected ? peachPuff.darker() : peachPuff); 
         g.fillRect(x, y, w, h);
     }
 });
@@ -416,7 +415,7 @@ getContentPane().add(tabbedPane, BorderLayout.CENTER);
         }
 
         public void mouseExited(java.awt.event.MouseEvent evt) {
-            button.setBackground(new Color(0xba8759)); // Original color
+            button.setBackground(new Color(0xba8759));
         }
     });
     return button;
@@ -438,10 +437,8 @@ private void addLabelAndField(JPanel panel, GridBagConstraints gbc, String label
     }
              
              
-    /**
-     * 
-     * @param args the command line arguments
-     */
+   
+  
 
 private void clearFields() {
     studentIDField.setText("");
@@ -469,7 +466,7 @@ private boolean isStudentIDValid() {
 private boolean isAgeValid() {
     try {
         int age = Integer.parseInt(ageField.getText());
-        if (age >= 5 && age <= 120) { // Example age range
+        if (age >= 5 && age <= 120) { 
             return true;
         } else {
             JOptionPane.showMessageDialog(this, "Age must be between 5 and 120.");
@@ -625,7 +622,7 @@ private boolean isCourseValid() {
 
              if (success) {
             JOptionPane.showMessageDialog(this, "Student deleted successfully!");
-            // Optionally clear the form fields after deletion
+          
             studentIDField.setText("");
             fullNameField.setText("");
             ageField.setText("");
@@ -652,10 +649,10 @@ private boolean isCourseValid() {
     AdminAccessDAO adminAccessDAO = new AdminAccessDAO(connection);
     StudentAccessDAO studentAccessDAO = new StudentAccessDAO(connection);
 
-    // Display LoginView
+   
     new LoginView(adminAccessDAO, studentAccessDAO).setVisible(true);
 
-    // Launch the StudentForm
+   
     SwingUtilities.invokeLater(() -> {
        LoginView loginView = new LoginView(adminAccessDAO, studentAccessDAO);
             loginView.setVisible(true);
@@ -668,7 +665,7 @@ private boolean isCourseValid() {
     
    
         try {
-        // Set Nimbus Look and Feel
+      
         for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
             if ("Nimbus".equals(info.getName())) {
                 UIManager.setLookAndFeel(info.getClassName());

@@ -10,9 +10,8 @@ package studentperformancemanagementsystem;
  */
 public class StudentManagementForm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form StudentManagementForm
-     */
+   
+ 
     public StudentManagementForm() {
         initComponents();
     }

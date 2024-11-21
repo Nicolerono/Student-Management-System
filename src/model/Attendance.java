@@ -13,7 +13,7 @@ import java.sql.Date;
 public class Attendance {
 private String attendanceId;
     private int studentID;
-    private Date attendancedate; // Use Date type if you want to handle dates more precisely
+    private Date attendancedate; 
     private String status;
 
     public Attendance(int studentID, Date attendancedate, String status) {

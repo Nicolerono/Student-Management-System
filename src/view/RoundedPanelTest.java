@@ -18,14 +18,14 @@ public class RoundedPanelTest {
             frame.setLayout(new BorderLayout());
             Color backgroundColor = null;
 
-            // Create a RoundedPanel with a specific background color, corner radius, and shadow size
+        
             RoundedPanel roundedPanel = new RoundedPanel(backgroundColor, 20, 10);
-            roundedPanel.setPreferredSize(new Dimension(100, 100)); // Set a preferred size for display purposes
+            roundedPanel.setPreferredSize(new Dimension(100, 100)); 
 frame.setLayout(new FlowLayout());
             frame.add(roundedPanel, BorderLayout.CENTER);
              frame.pack();
 
-            frame.setLocationRelativeTo(null); // Center the frame
+            frame.setLocationRelativeTo(null); 
             frame.setVisible(true);
         });
     }

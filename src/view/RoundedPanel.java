@@ -21,7 +21,7 @@ public class RoundedPanel extends JPanel {
         this.backgroundColor = backgroundColor;
         this.cornerRadius = cornerRadius;
         this.shadowSize = shadowSize;
-        setOpaque(false); // Set to false for custom painting
+        setOpaque(false); 
 }
     
  @Override
@@ -33,11 +33,11 @@ public class RoundedPanel extends JPanel {
         
          int margin = shadowSize / 2;
         
-        // Draw shadow
-        g2d.setColor(new Color(0, 0, 0, 50)); // Semi-transparent black for shadow
+        
+        g2d.setColor(new Color(0, 0, 0, 50)); 
         g2d.fillRoundRect(shadowSize, shadowSize, getWidth() - shadowSize, getHeight() - shadowSize, cornerRadius, cornerRadius);
         
-        // Draw panel background with rounded corners
+  
         g2d.setColor(backgroundColor);
         g2d.fillRoundRect(0, 0, getWidth() - shadowSize, getHeight() - shadowSize, cornerRadius, cornerRadius);
         

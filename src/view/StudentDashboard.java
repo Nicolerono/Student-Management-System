@@ -11,15 +11,15 @@ public class StudentDashboard extends JFrame{
     String role;
 
     public StudentDashboard(String role, int studentID) {
-        studentDAO = new StudentDAO(); // Initialize DAO
+        studentDAO = new StudentDAO();
 this.role = role;
-        // Set up the frame
+       
         setTitle("Student Dashboard");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Initialize UI components
+        
         JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
@@ -31,23 +31,23 @@ this.role = role;
             JFrame frame = new JFrame("Attendance Records");
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setSize(600, 400);
-            frame.setLocationRelativeTo(this); // Center the frame relative to the StudentDashboard
+            frame.setLocationRelativeTo(this); 
 
-            // Add AttendanceView (which is a JPanel) to the JFrame
+           
             AttendanceView attendanceView = new AttendanceView(studentID,role, studentDAO);
-            frame.add(attendanceView); // Add JPanel to JFrame
-            frame.setVisible(true); // Show the new window
+            frame.add(attendanceView); 
+            frame.setVisible(true); 
         });
 
-        // Add button actions
+      
        
         viewRecordsButton.addActionListener(e -> openStudentRecordsWindow(studentID));
 
-        // Add buttons to the panel
+        
         panel.add(viewAttendanceButton);
         panel.add(viewRecordsButton);
 
-        // Add panel to frame
+        
         add(panel);
     }
 
@@ -63,7 +63,7 @@ this.role = role;
 
         AttendanceView attendanceView = new AttendanceView( studentID,role, studentDAO);
         if (attendanceView instanceof JPanel) {
-            frame.add(attendanceView); // Add JPanel to JFrame
+            frame.add(attendanceView); 
             frame.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(
@@ -86,7 +86,7 @@ this.role = role;
     frame.add(recordsView);
     frame.setVisible(true);
     try {
-        // Assuming StudentRecordsView is a JFrame that takes the DAO or studentID
+        
         
         recordsView.setVisible(true);
     } catch (Exception ex) {

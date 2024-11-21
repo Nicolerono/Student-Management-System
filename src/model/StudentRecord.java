@@ -28,7 +28,7 @@ public class StudentRecord {
     }
 
    
-    // Getters and setters
+   
 
     public int getRecordId() {
         return recordId;

@@ -51,7 +51,7 @@ public class LoginView extends JFrame {
         panel.add(passwordField);
         panel.add(roleLabel);
         panel.add(roleSelector);
-        panel.add(new JLabel()); // Empty placeholder
+        panel.add(new JLabel()); 
         panel.add(loginButton);
 
         add(panel);
@@ -64,14 +64,14 @@ public class LoginView extends JFrame {
             String password = new String(passwordField.getPassword());
             String role = (String) roleSelector.getSelectedItem();
 
-            // Admin role login
+           
             if ("Admin".equals(role)) {
                 try {
                     if (adminAccessDAO.validateAdmin(id, password)) {
                         JOptionPane.showMessageDialog(LoginView.this, "Admin login successful!");
                         int adminID = Integer.parseInt(id);
                         new AdminDashboard(adminID).setVisible(true);
-                        dispose(); // Close the login window
+                        dispose(); 
                     } else {
                         JOptionPane.showMessageDialog(LoginView.this, "Invalid admin credentials.", "Login Failed", JOptionPane.ERROR_MESSAGE);
                     }
@@ -80,7 +80,7 @@ public class LoginView extends JFrame {
                     JOptionPane.showMessageDialog(LoginView.this, "Error validating admin credentials.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            // Student role login
+           
             else if ("Student".equals(role)) {
                 try {
                     if (studentAccessDAO.validateStudent(id, password)) {
@@ -89,7 +89,7 @@ public class LoginView extends JFrame {
                         int studentID = Integer.parseInt(id);
                         loggedInStudentID = studentID;
                SwingUtilities.invokeLater(() -> new StudentDashboard(role, studentID).setVisible(true));
-                        dispose(); // Close the login window
+                        dispose(); 
                     } else {
                         JOptionPane.showMessageDialog(LoginView.this, "Invalid student credentials.", "Login Failed", JOptionPane.ERROR_MESSAGE);
                     }
@@ -103,7 +103,7 @@ public class LoginView extends JFrame {
 
     public static void main(String[] args) {
         // Set up the connection and DAOs
-        Connection connection = new dao.DatabaseConnection().getConnection();  // Ensure DatabaseConnection is implemented correctly
+        Connection connection = new dao.DatabaseConnection().getConnection(); 
         AdminAccessDAO adminAccessDAO = new AdminAccessDAO(connection);
         StudentAccessDAO studentAccessDAO = new StudentAccessDAO(connection);
 
